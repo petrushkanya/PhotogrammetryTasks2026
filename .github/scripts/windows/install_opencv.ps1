@@ -29,13 +29,13 @@ New-Item -ItemType Directory -Force -Path $InstDir  | Out-Null
 # Configure (VS2022)
 Write-Host "Configuring OpenCV..."
 & cmake -S $SrcDir -B $BuildDir -G "Visual Studio 17 2022" -A x64 `
-  -DCMAKE_INSTALL_PREFIX="$InstDir" `
-  -DCMAKE_CONFIGURATION_TYPES="Debug;RelWithDebInfo" `
-  -DINSTALL_CREATE_DISTRIB=ON `
-  -DBUILD_LIST=features2d,highgui,flann,calib3d,imgcodecs `
-  -DWITH_OPENEXR=ON `
-  -DBUILD_EXAMPLES=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_TESTS=OFF -DBUILD_DOCS=OFF `
-  -DWITH_CUDA=OFF
+  "-DCMAKE_INSTALL_PREFIX=$InstDir" `
+  "-DCMAKE_CONFIGURATION_TYPES=Debug;RelWithDebInfo" `
+  "-DINSTALL_CREATE_DISTRIB=ON" `
+  "-DBUILD_LIST=features2d,highgui,flann,calib3d,imgcodecs" `
+  "-DWITH_OPENEXR=ON" `
+  "-DBUILD_EXAMPLES=OFF" "-DBUILD_PERF_TESTS=OFF" "-DBUILD_TESTS=OFF" "-DBUILD_DOCS=OFF" `
+  "-DWITH_CUDA=OFF"
 
 # Build + install both configs (your project uses RelWithDebInfo in CI)
 Write-Host "Building+Installing OpenCV RelWithDebInfo..."
