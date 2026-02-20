@@ -500,9 +500,8 @@ TEST (SIFT, HerzJesu19RotateM40) {
     evaluateDetection(cv::getRotationMatrix2D(cv::Point(jesu19.cols/2, jesu19.rows/2), -angleDegreesClockwise, scale), minRecall, jesu19);
 }
 
-#if ENABLE_MY_SIFT_TESTING
 TEST (SIFT, DetectionSmokeTest) {
-
+#if ENABLE_MY_SIFT_TESTING
     phg::SIFTParams p;
     phg::SIFT sift(p, 2, "data/debug/test_sift/debug/");
 
@@ -512,6 +511,9 @@ TEST (SIFT, DetectionSmokeTest) {
     std::vector<cv::KeyPoint> kpts;
     cv::Mat desc;
     sift.detectAndCompute(img, kpts, desc);
+#else
+    rassert(false, "ENABLE_MY_SIFT_TESTING is disabled!");
+#endif
 }
 
 
@@ -805,6 +807,7 @@ namespace {
 
 
 TEST(SIFT, DetectionDescriptionSteps) {
+#if ENABLE_MY_SIFT_TESTING
     ASSERT_TRUE(fs::exists(kDataDir))  << "Test data directory not found: " << kDataDir;
 
     phg::SIFTParams p;
@@ -862,10 +865,13 @@ TEST(SIFT, DetectionDescriptionSteps) {
     if (::testing::Test::HasFatalFailure()) return;
 
     std::cout << "described n keypoints: " << kpts.size() << std::endl;
+#else
+    rassert(false, "ENABLE_MY_SIFT_TESTING is disabled!");
+#endif
 }
 
 TEST (SIFT, PairMatching) {
-
+#if ENABLE_MY_SIFT_TESTING
     cv::Mat img1 = cv::imread("data/src/test_sift/mysh2.jpg");
     ASSERT_FALSE(img1.empty());
 
@@ -897,5 +903,8 @@ TEST (SIFT, PairMatching) {
     EXPECT_GE(data.nmatches, thresh * data_cv.nmatches);
 
     std::cout << "Final score: " << data.nmatches << std::endl;
-}
+#else
+    std::cout << "Final score: UNKNOWN" << std::endl;
+    rassert(false, "ENABLE_MY_SIFT_TESTING is disabled!");
 #endif
+}
