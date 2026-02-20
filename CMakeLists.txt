@@ -9,8 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 # OpenMP позволит распараллеливать циклы на все ядра процессора простыми директивами
 find_package(OpenMP)
 if (OpenMP_CXX_FOUND)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+    message(STATUS "OpenMP found")
 else()
     message(FATAL_ERROR "OpenMP not found! You need OpenMP for speedup on multicore CPUs!")
 endif()
@@ -20,7 +19,7 @@ find_package(OpenCV 4.11.0 REQUIRED)
 # который выполняет сборку и исполнение на linux/windows/macos
 # описание шагов - в .github/workflows/cmake.yml
 #
-#      Linux:
+#      Linux: (рекомендуется Ubuntu 22.04/24.04, на крайний случай - в виртуалке)
 # sudo .github/scripts/install_opencv_linux.sh
 # укажите для CMake путь к OpenCV:
 # в CLion это делается через File->Settings->Build, Execution, Deployment->CMake->CMake options: -DOpenCV_DIR=/opt/opencv-4.11.0/lib/cmake/opencv4
@@ -43,6 +42,7 @@ set(SOURCES
 set(LIBRARIES
         libutils
         ${OpenCV_LIBS}
+        OpenMP::OpenMP_CXX
         )
 
 add_library(${PROJECT_NAME} ${SOURCES})
