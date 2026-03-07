@@ -64,6 +64,7 @@ set(SOURCES ${SOURCES} src/phg/matching/cl/bruteforce_matcher_cl.h)
 set(LIBRARIES
         libutils
         ${OpenCV_LIBS}
+        OpenMP::OpenMP_CXX
         )
 
 add_library(${PROJECT_NAME} ${SOURCES})
