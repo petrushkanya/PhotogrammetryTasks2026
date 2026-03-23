@@ -3,6 +3,7 @@
 
 #include <libutils/bbox2.h>
 #include <iostream>
+#include <queue>
 
 /*
  * imgs - список картинок
